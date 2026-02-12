@@ -1,0 +1,349 @@
+body {
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* background layer */
+body::before {
+    content: "";
+    position: fixed;
+    background-attachment: scroll;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            rgba(245, 241, 236, 0.85),
+            rgba(245, 241, 236, 0.85)
+        ),
+        url("../img/bg1.png"),
+        url("../img/bg2.png");
+
+    background-size:
+        cover,
+        contain,
+        contain;
+
+    background-position:
+        center,
+        center,
+        center;
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat;
+}
+
+/* --------------------------------------
+                  NAVBAR 
+----------------------------------------- */
+.greeting {
+  animation: floatIn 3s ease-in-out infinite;
+  display: inline-block;
+  color: #003262;
+  margin-left: 5%;
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translateY(6px);
+  }
+}
+
+.heart {
+  display: inline-block;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+
+.nav-wrapper {
+    font-family: "Delius Swash Caps", cursive;
+    border: 3px solid #E3DAC9;
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    color: #8C92AC;
+}
+
+.navbar {
+  --bs-navbar-active-color: #0070BB;
+  --bs-navbar-color: #708090;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .nav-link {
+        padding: 10px 0;
+    }
+    .greeting {
+        margin-left: 20%;
+    }
+}
+
+@media (min-width: 576px) {
+    .greeting {
+        margin-left: 10%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    .greeting {
+        margin-left: 7%;
+    }
+}
+
+.music-btn {
+    position: fixed;
+    background: #ffffffaa;
+    border: 2px solid #b2c0d7;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease;
+}
+
+.music-btn.playing {
+    animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* --------------------------------------
+                  CARD
+----------------------------------------- */
+.konten-box {
+    border: 3px solid #E3DAC9;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+}
+
+.card-title {
+  font-family: "Emilys Candy", serif;
+}
+
+.card-text {
+  font-family: "Delius", cursive;
+}
+
+/* --------------------------------------
+              CARD PERTAMA
+----------------------------------------- */
+.disclaimer-header {
+    animation: fadeSlide 2s ease-out forwards;
+}
+
+.disclaimer-icon {
+    animation: softPulse 3s ease-in-out infinite,
+               warnShake 2s ease-in-out infinite;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes softPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes warnShake {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+}
+
+.typewriter::after {
+    content: "|";
+    margin-left: 3px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.warning-wrapper {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.6s ease;
+}
+
+.warning-wrapper.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.warning-icon {
+    animation: pulseShake 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseShake {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.08) rotate(-3deg);
+    }
+    50% {
+        transform: scale(1.12) rotate(3deg);
+    }
+    75% {
+        transform: scale(1.08) rotate(-2deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* --------------------------------------
+              CARD KEDUA
+----------------------------------------- */
+.howto-title {
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-family: "Delius", cursive;
+}
+
+.howto-list {
+    padding-left: 1.2rem; 
+    font-family: "Delius", cursive;
+}
+
+.howto-list li {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: listFadeUp 1s ease-out forwards;
+}
+
+.howto-list li:nth-child(1) { animation-delay: 0.4s; }
+.howto-list li:nth-child(2) { animation-delay: 0.6s; }
+.howto-list li:nth-child(3) { animation-delay: 0.8s; }
+
+.howto-list li:hover {
+    transform: translateX(4px);
+    transition: transform 1s ease;
+}
+
+@keyframes listFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #AA98A9, #c9b6c5);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(170, 152, 169, 0.35);
+    transition: all 0.35s ease;
+}
+
+.start-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(170, 152, 169, 0.45);
+    background: linear-gradient(135deg, #b7a4b6, #d8c6d5);
+    color: #fff;
+}
+
+.start-btn:active {
+    transform: scale(0.98);
+}
+
+/* --------------------------------------
+              CARD KETIGA
+----------------------------------------- */
+.typewriter::after {
+    content: "|";
+    margin-left: 3px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Wrapper blob */
+.polaroid {
+    width: 190px;
+    background: #fff;
+    padding: 10px 10px 22px;
+    margin: 28px auto;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: rotate(-2deg);
+    border-radius: 6px;
+}
+
+.polaroid img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.polaroid span {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+}
+
+
+

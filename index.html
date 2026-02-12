@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/general.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Delius&family=Delius+Swash+Caps&family=Emilys+Candy&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container my-3">
+
+        <!-- NAVBAR -->
+        <nav class="nav-wrapper navbar navbar-expand-md px-2 py-3 mb-2">
+            <div class="navbar-brand d-flex align-items-center justify-content-between w-100 gap-3">
+                <h5 class="mb-0 greeting fw-bold">
+                    Hi there! take your time <span class="heart">🤍</span>
+                </h5>
+
+                <button id="music-toggle" class="music-btn">🤍</button>
+            </div>
+
+            <!-- <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button> -->
+
+            <!-- Nav items -->
+            <!-- <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mt-3 mt-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">About you</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reasons why i love you</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">A little love note</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bulol Things</a>
+                        </li>
+                    </ul>
+                </div> -->
+        </nav>
+
+        <!-- CONTENT -->
+        <div class="row konten g-0">
+            <div class="col-sm-4 konten-box">
+                <div class="d-flex align-items-center mb-3 disclaimer-header">
+                    <img src="/img/dc.png" alt="cute png" width="15%" class="disclaimer-icon">
+                    <h5 class="card-title mb-0">Disclaimer</h5>
+                </div>
+                <p class="card-text typewriter" id="typingText"></p>
+                <div class="d-flex align-items-center mb-3 warning-wrapper">
+                    <img src="/img/warn.png" alt="cute png" width="15%" class="warning-icon">
+                    <p class="card-text">
+                        One more thing that's very important. This website is only for
+                        <span class="fw-bold">bf, Joshua!</span>
+                        if you're not him, please go away!
+                    </p>
+                </div>
+                <img src="/img/border1.png" alt="border" width="80%" class="mx-auto d-block">
+            </div>
+
+            <div class="col-sm-4 konten-box">
+                <div class="d-flex align-items-center mb-3 disclaimer-header">
+                    <img src="/img/hi.png" alt="cute png" width="50%" class="disclaimer-icon">
+                    <img src="/img/hi2.png" alt="cute png" width="50%" class="disclaimer-icon">
+                </div>
+
+                <p class="card-text disclaimer-header">This page exists for no big reason. Just because you crossed my
+                    mind, and I wanted
+                    to keep that feeling somewhere 🌸</p>
+                <h6 class="howto-title">📖 How to read this page:</h6>
+                <ul class="howto-list">
+                    <li>Duduk santai</li>
+                    <li>Scroll pelan</li>
+                    <li>Jangan kaget kalau senyum sendiri</li>
+                </ul>
+                <a href="/about.html" class="btn start-btn">Okay... let's go!</a>
+            </div>
+
+            <div class="col-sm-4 konten-box">
+                <div class="d-flex align-items-center mb-3 disclaimer-header">
+                    <h5 class="card-title px-2">About the sender</h5>
+                    <img src="/img/dc2.png" alt="cute png" width="15%" class="disclaimer-icon">
+                </div>
+                <p class="card-text typewriter" id="aboutTyping"></p>
+                <div class="polaroid">
+                    <img src="/img/sender.jpg" alt="Sender photo">
+                    <span>from me 🤍</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="sweet.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('backgroundMusic');
+            const btn = document.getElementById('music-toggle');
+
+            // cek apakah sebelumnya user sudah mengizinkan musik
+            const musicAllowed = localStorage.getItem('musicAllowed');
+
+            if (musicAllowed === 'true') {
+                music.play().then(() => {
+                    btn.textContent = '🎵';
+                }).catch(() => {
+                    btn.textContent = '🤍';
+                });
+            }
+
+            // klik pertama di mana saja → izinkan musik
+            const enableMusic = () => {
+                music.play().then(() => {
+                    localStorage.setItem('musicAllowed', 'true');
+                    btn.textContent = '🎵';
+                }).catch(() => { });
+                document.removeEventListener('click', enableMusic);
+            };
+
+            document.addEventListener('click', enableMusic);
+
+            // toggle manual
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // supaya tidak double-trigger
+                if (music.paused) {
+                    music.play();
+                    btn.textContent = '🎵';
+                    localStorage.setItem('musicAllowed', 'true');
+                } else {
+                    music.pause();
+                    btn.textContent = '🤍';
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const header = document.querySelector(".disclaimer-header");
+            const textEl = document.getElementById("typingText");
+            const warning = document.querySelector(".warning-wrapper");
+            const aboutEl = document.getElementById("aboutTyping");
+
+            const textMain = `This website is not about serious matters concerning the world. Tapi berisi hal-hal yang manis. Made with love, senyum kecil, dan sedikit ke-random-an. Kalau kamu senyum tanpa sadar, itu side effect yang wajar ✨`;
+
+            const textAbout = `Hi, it’s me — your girlfriend 💌
+            Just a girl who loves you quietly, overthinks a little, and made this with a lot of feelings (and smiles). Nothing fancy, just love 🤍`;
+
+            /* ========= TYPING 1 ========= */
+            function typeText(el, text, speed, callback) {
+                let index = 0;
+
+                function type() {
+                    if (index < text.length) {
+                        el.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, speed);
+                    } else {
+                        el.classList.remove("typewriter");
+                        if (callback) callback();
+                    }
+                }
+                type();
+            }
+
+            // Mulai semuanya setelah header selesai animasi
+            header.addEventListener("animationend", (e) => {
+                if (e.animationName === "fadeSlide") {
+
+                    // Typing utama
+                    typeText(textEl, textMain, 35, () => {
+                        // Setelah typing utama selesai
+                        warning.classList.add("show");
+
+                        // Delay kecil biar halus
+                        setTimeout(() => {
+                            typeText(aboutEl, textAbout, 35);
+                        }, 300);
+                    });
+
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

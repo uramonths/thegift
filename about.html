@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/general.css">
+    <link rel="stylesheet" href="style/about.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Delius&family=Delius+Swash+Caps&family=Emilys+Candy&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container about-you-section my-5">
+
+        <!-- JUDUL -->
+        <h3 class="section-title reveal">About Him 🤍</h3>
+
+        <!-- TEKS PANJANG -->
+        <div class="about-you-text px-3">
+            <p class="reveal-paragraph">
+                ✨ This is the person I love the most. Yes, that’s you, kak 🫶
+            </p>
+
+            <p class="reveal-paragraph">
+                You are the kind of person who looks calm on the outside, but actually has a whole galaxy of thoughts
+                inside
+                your head 🌌 Kadang sok strong, tapi tetap butuh ditemenin juga.
+            </p>
+
+            <p class="reveal-paragraph">
+                Kadang bingung sama manusia satu ini, kadang jadi orang yang paling dewasa sok cool keren yess ✨
+                Tapi nyatanya dia ini bisa jadi bocil manja loooh gess, udah mau saingan sama balita.
+                Tentunya ini cuma kalau lagi sama aku aja si xixi 🤭 💭
+                <span class="wiggle">gumussshh</span> hehee 🫠🤍
+            </p>
+        </div>
+
+        <!-- A. POLAROID PHOTOS -->
+        <div class="polaroid-wrapper reveal">
+            <div class="polaroid">
+                <img src="img/josh1.jpg" alt="Joshua photo">
+                <span>My handsome boyfriend.</span>
+            </div>
+
+            <div class="polaroid">
+                <img src="img/josh2.jpg" alt="Joshua photo">
+                <span>My favorite human.</span>
+            </div>
+
+            <div class="polaroid">
+                <img src="img/josh3.jpg" alt="Joshua photo">
+                <span>Caught being cute.</span>
+            </div>
+        </div>
+
+        <div class="about-you-text px-3">
+            <p class="reveal">
+                You laugh at random things, the way you exist, without even trying, already makes things feel lighter 🌷
+                You’re not perfect (obviously), but somehow you’re perfectly you. Sometimes quiet, sometimes random,
+                sometimes annoying (a little), but always comforting in ways you probably don’t realize 💌
+            </p>
+
+            <p class="reveal">
+                <span class="soft-heart">🤍</span>
+                Being with you feels simple, warm, and a little bit addictive,
+                in the best way possible 🥰
+            </p>
+        </div>
+
+        <!-- B. CLICK TO REVEAL -->
+        <div class="reveal">
+            <button id="revealBtn" class="reveal-btn">Click me 🤍</button>
+            <p id="revealText" class="reveal-text"></p>
+        </div>
+
+        <div class="mini-notes">
+            <div class="bubble left">
+                💬 Me: “Kamu nyebelin.”
+            </div>
+
+            <div class="bubble right">
+                💬 Also me: “But you’re still my favorite human.”
+            </div>
+
+            <div class="bubble left">
+                💬 Me: “Aku kuat kok.”
+            </div>
+
+            <div class="bubble right">
+                💬 Also me: “But life feels lighter with you.”
+            </div>
+
+            <div class="bubble center fact">
+                💬 Fact: He makes my bad days quieter, without even trying.
+            </div>
+        </div>
+
+        <div class="reveal">
+            <button class="reveal-btn" href="/reason.html">Next page 🤍</button>
+        </div>
+    </div>
+
+    <script>
+        const revealBtn = document.getElementById("revealBtn");
+        const revealText = document.getElementById("revealText");
+
+        const messages = [
+            "He pretends not to care, but he does.",
+            "Soft heart, hidden very well.",
+            "You make things feel safe.",
+            "You’re doing better than you think 🤍",
+            "My calm place."
+        ];
+
+        revealBtn.addEventListener("click", () => {
+            const random = messages[Math.floor(Math.random() * messages.length)];
+            revealText.textContent = random;
+            revealText.classList.add("show");
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            /* OBSERVER UMUM */
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            /* judul & elemen biasa */
+            document.querySelectorAll(".reveal").forEach(el => {
+                observer.observe(el);
+            });
+
+            /* PARAGRAF STAGGER */
+            const paragraphContainer = document.querySelector(".about-you-text");
+            const paragraphs = paragraphContainer.querySelectorAll(".reveal-paragraph");
+
+            const paragraphObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        paragraphs.forEach((p, index) => {
+                            setTimeout(() => {
+                                p.classList.add("show");
+                            }, index * 800); // jeda antar paragraf
+                        });
+                        paragraphObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            paragraphObserver.observe(paragraphContainer);
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const revealBtn = document.getElementById("revealBtn");
+            const bubbles = document.querySelectorAll(".mini-notes .bubble");
+
+            revealBtn.addEventListener("click", () => {
+
+                // ⏳ delay setelah click me
+                const delayBeforeBubbles = 2000; // 2 detik (ubah kalau mau)
+
+                setTimeout(() => {
+                    bubbles.forEach((bubble, index) => {
+                        setTimeout(() => {
+                            bubble.classList.add("show");
+                        }, index * 1000); // jeda 1 detik per bubble
+                    });
+                }, delayBeforeBubbles);
+
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

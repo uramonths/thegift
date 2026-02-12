@@ -1,0 +1,251 @@
+.about-you-section {
+    text-align: center;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-family: "Emilys Candy", serif;
+}
+
+.about-you-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    text-align:justify;
+    font-family: "Delius", cursive;
+}
+
+.about-you-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    position: relative;
+}
+
+.sparkle {
+    display: inline-block;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.awan {
+    display: inline-block;
+    animation: floatUp 3s ease-in-out infinite;
+}
+
+.wiggle {
+    display: inline-block;
+    font-weight: 600;
+    animation: wiggle 1.5s ease-in-out infinite;
+}
+
+.soft-heart {
+    display: inline-block;
+    animation: pulseSoft 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0.8; }
+    50% { transform: translateY(-6px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.8; }
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes pulseSoft {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* --------------------------------------
+            POLAROID PICTURES
+----------------------------------------- */
+.polaroid-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.polaroid {
+    background: #fff;
+    padding: 12px;
+    width: 180px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transform: rotate(-2deg);
+    transition: all 0.3s ease;
+}
+
+.polaroid:nth-child(2) {
+    transform: rotate(2deg);
+}
+
+.polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.polaroid span {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+/* --------------------------------------
+            BUTTON CLICK ME
+----------------------------------------- */
+.reveal-btn {
+    background: #AA98A9;
+    border: none;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    font-family: "Delius", cursive;
+}
+
+.reveal-btn:hover {
+    transform: scale(1.05);
+}
+
+.reveal-text {
+    margin-top: 16px;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    font-family: "Delius", cursive;
+}
+
+.reveal-text.show {
+    opacity: 1;
+}
+
+/* --------------------------------------
+        MINI NOTES / BUBBLE CHAT
+----------------------------------------- */
+.mini-notes {
+    max-width: 520px;
+    margin: 40px auto;
+    font-family: 'Libre Baskerville', serif;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bubble {
+    padding: 14px 18px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-width: 80%;
+    backdrop-filter: blur(4px);
+    border: 2px solid #b2c0d7;
+    font-family: "Delius", cursive;
+}
+
+.bubble.left {
+    align-self: flex-start;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.bubble.right {
+    align-self: flex-end;
+    background-color: rgba(240, 232, 245, 0.7);
+}
+
+.bubble.fact {
+    text-align: center;
+    font-style: italic;
+    background-color: rgba(250, 245, 255, 0.8);
+}
+
+.bubble {
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* --------------------------------------
+                ANIMASI
+----------------------------------------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(-24px);
+}
+
+/* muncul */
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* paragraf stagger */
+.reveal-paragraph {
+    opacity: 0;
+    transform: translateY(-18px);
+}
+
+.reveal-paragraph.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* polaroid efek dikit */
+.polaroid-wrapper.reveal {
+    transform: translateY(30px) scale(0.95);
+}
+
+.polaroid-wrapper.reveal.show {
+    transform: translateY(0) scale(1);
+}
+
+.mini-notes {
+    margin-top: 2rem;
+}
+
+/* bubble default: tersembunyi */
+.mini-notes .bubble {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* bubble muncul */
+.mini-notes .bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+
+
+

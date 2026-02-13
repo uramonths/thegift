@@ -1,6 +1,36 @@
 .book {
     text-align: center;
     padding: 50px 20px;
+    border-radius: 30px;
+    position: relative;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative floating hearts */
+.book::before {
+    content: "💗 💕 🤍";
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    opacity: 0.3;
+    font-size: 20px;
+}
+
+.book::after {
+    content: "💗 🤍 💕";
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 20px;
+    opacity: 0.3;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
 .book-title {
@@ -9,25 +39,49 @@
 }
 
 .book-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    justify-items: center;
     perspective: 1200px;
 }
 
 /* PAGE */
 .page {
-    width: 220px;
-    height: 160px;
+    width: 200px;
+    height: 150px;
     position: relative;
     transform-style: preserve-3d;
     cursor: pointer;
     transition: transform 0.8s;
+    touch-action: manipulation;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 3.0s ease forwards;
+}
+
+.page:nth-child(1) { animation-delay: 0.1s; }
+.page:nth-child(2) { animation-delay: 0.2s; }
+.page:nth-child(3) { animation-delay: 0.3s; }
+.page:nth-child(4) { animation-delay: 0.4s; }
+.page:nth-child(5) { animation-delay: 0.5s; }
+.page:nth-child(6) { animation-delay: 0.6s; }
+.page:nth-child(7) { animation-delay: 0.7s; }
+.page:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .page.flip {
     transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    box-shadow: 0 15px 35px rgba(255, 182, 193, 0.6);
+    transition: transform 0.8s, box-shadow 0.5s;
 }
 
 /* FRONT */
@@ -47,7 +101,7 @@
 
 /* Cover style */
 .page-front {
-    background: #ffd6e8;
+    background: linear-gradient(145deg, #ffd6e8, #ffc2dd);
     box-shadow: 0 5px 20px rgba(255, 182, 193, 0.4);
     font-weight: 600;
 }
@@ -56,24 +110,54 @@
 .page-back {
     background: white;
     transform: rotateY(180deg);
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.08);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.08);
     font-size: 0.9rem;
     line-height: 1.4;
 }
 
 .page-back {
     background:
-        repeating-linear-gradient(
-            white,
+        repeating-linear-gradient(white,
             white 24px,
-            #f2f2f2 25px
-        );
+            #f2f2f2 25px);
 }
 
-.page {
-    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+/* Tablet */
+@media (max-width: 992px) {
+    .book-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-.page:hover {
-    transform: translateY(-8px);
+/* Mobile */
+@media (max-width: 600px) {
+    .book-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .page {
+        width: 140px;
+        height: 110px;
+    }
+}
+
+.book p {
+    margin-top: 60px;
+    font-family: 'Delius', cursive;
+    font-size: 1.1rem;
+    color: #d46a92;
+    background: #fff0f6;
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.3);
+    animation: pulseSoft 2.5s infinite ease-in-out;
+}
+
+/* Soft breathing animation */
+@keyframes pulseSoft {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }

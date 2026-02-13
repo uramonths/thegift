@@ -191,30 +191,23 @@
             });
         });
 
-        const music = document.getElementById("bg-music");
+        document.addEventListener("DOMContentLoaded", () => {
+            const music = document.getElementById("backgroundMusic");
+            const allowed = localStorage.getItem("musicAllowed");
 
-        // Cek apakah sebelumnya sudah play
-        const isPlaying = localStorage.getItem("musicPlaying");
-        const musicTime = localStorage.getItem("musicTime");
+            if (allowed === "true") {
+                const tryPlay = () => {
+                    music.play().catch(() => {
+                        // kalau masih diblokir, tunggu interaksi pertama
+                        document.addEventListener("click", () => {
+                            music.play();
+                        }, { once: true });
+                    });
+                };
 
-        if (isPlaying === "true") {
-            music.currentTime = musicTime ? parseFloat(musicTime) : 0;
-            music.play();
-        }
-
-        // Simpan waktu sebelum pindah halaman
-        window.addEventListener("beforeunload", () => {
-            localStorage.setItem("musicTime", music.currentTime);
-            localStorage.setItem("musicPlaying", !music.paused);
-        });
-
-        // Klik pertama untuk aktifkan (karena browser butuh user interaction)
-        document.addEventListener("click", () => {
-            if (music.paused) {
-                music.play();
-                localStorage.setItem("musicPlaying", true);
+                tryPlay();
             }
-        }, { once: true });
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -109,6 +109,10 @@
         <a href="reason.html" class="btn start-btn">Next page!</a>
     </div>
 
+    <audio id="bg-music" loop>
+        <source src="stream.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const revealBtn = document.getElementById("revealBtn");
         const revealText = document.getElementById("revealText");
@@ -186,6 +190,31 @@
 
             });
         });
+
+        const music = document.getElementById("bg-music");
+
+        // Cek apakah sebelumnya sudah play
+        const isPlaying = localStorage.getItem("musicPlaying");
+        const musicTime = localStorage.getItem("musicTime");
+
+        if (isPlaying === "true") {
+            music.currentTime = musicTime ? parseFloat(musicTime) : 0;
+            music.play();
+        }
+
+        // Simpan waktu sebelum pindah halaman
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("musicTime", music.currentTime);
+            localStorage.setItem("musicPlaying", !music.paused);
+        });
+
+        // Klik pertama untuk aktifkan (karena browser butuh user interaction)
+        document.addEventListener("click", () => {
+            if (music.paused) {
+                music.play();
+                localStorage.setItem("musicPlaying", true);
+            }
+        }, { once: true });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

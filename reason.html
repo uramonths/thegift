@@ -25,58 +25,67 @@
 
             <!-- PAGE -->
             <div class="page">
-                <div class="page-front">01 — Click me</div>
-                <div class="page-back">
-                    Because your clingy side!!!! ituu games bangettt.
+                <div class="page-inner">
+                    <div class="page-front">01 — Click me</div>
+                    <div class="page-back">
+                        Because your clingy side!!!! ituu games bangettt.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">02 — Click me</div>
-                <div class="page-back">
-                    Because you listen even when I talk nonsense.
+                <div class="page-inner">
+                    <div class="page-front">02 — Click me</div>
+                    <div class="page-back">
+                        Because you listen even when I talk nonsense.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">03 — Click me</div>
-                <div class="page-back">
-                    Because you randomly become bocil manja.
+                <div class="page-inner">
+                    <div class="page-front">03 — Click me</div>
+                    <div class="page-back">
+                        Because you randomly become bocil manja.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">04 — Click me</div>
-                <div class="page-back">
-                    Because you make simple days feel special.
+                <div class="page-inner">
+                    <div class="page-front">04 — Click me</div>
+                    <div class="page-back">
+                        Because you make simple days feel special.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">05 — Click me</div>
-                <div class="page-back">
-                    Because you care in quiet ways.
+                <div class="page-inner">
+                    <div class="page-front">05 — Click me</div>
+                    <div class="page-back">
+                        Because you care in quiet ways.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">06 — Click me</div>
-                <div class="page-back">
-                    Because you make me laugh at random things.
+                <div class="page-inner">
+                    <div class="page-front">06 — Click me</div>
+                    <div class="page-back">
+                        Because you make me laugh at random things.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">07 — Click me</div>
-                <div class="page-back">
-                    Because your overthinking brain is cute.
+                <div class="page-inner">
+                    <div class="page-front">07 — Click me</div>
+                    <div class="page-back">
+                        Because your overthinking brain is cute.
+                    </div>
                 </div>
             </div>
-
             <div class="page">
-                <div class="page-front">08 — Click me</div>
-                <div class="page-back">
-                    Because you make simple days feel special.
+                <div class="page-inner">
+                    <div class="page-front">08 — Click me</div>
+                    <div class="page-back">
+                        Because you make simple days feel special.
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,20 +94,43 @@
 
     </section>
 
+    <audio id="bg-music" loop>
+        <source src="stream.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const pages = document.querySelectorAll(".page");
-        const sound = document.getElementById("flip-sound");
 
         pages.forEach(page => {
             page.addEventListener("click", () => {
-
                 page.classList.toggle("flip");
-
-                sound.currentTime = 0;
-                sound.play();
-
             });
         });
+
+        const music = document.getElementById("bg-music");
+
+        // Cek apakah sebelumnya sudah play
+        const isPlaying = localStorage.getItem("musicPlaying");
+        const musicTime = localStorage.getItem("musicTime");
+
+        if (isPlaying === "true") {
+            music.currentTime = musicTime ? parseFloat(musicTime) : 0;
+            music.play();
+        }
+
+        // Simpan waktu sebelum pindah halaman
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("musicTime", music.currentTime);
+            localStorage.setItem("musicPlaying", !music.paused);
+        });
+
+        // Klik pertama untuk aktifkan (karena browser butuh user interaction)
+        document.addEventListener("click", () => {
+            if (music.paused) {
+                music.play();
+                localStorage.setItem("musicPlaying", true);
+            }
+        }, { once: true });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

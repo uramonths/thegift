@@ -208,6 +208,20 @@
                 tryPlay();
             }
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const music = document.getElementById("backgroundMusic");
+            const allowed = localStorage.getItem("musicAllowed");
+
+            if (allowed === "true") {
+                music.play().catch(() => {
+                    document.addEventListener("click", () => {
+                        music.play();
+                    }, { once: true });
+                });
+            }
+        });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

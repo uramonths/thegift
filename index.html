@@ -87,7 +87,10 @@
                     <li>Scroll pelan</li>
                     <li>Jangan kaget kalau senyum sendiri</li>
                 </ul>
-                <a href="about.html" class="btn start-btn">Okay... let's go!</a>
+                <a href="about.html" class="btn start-btn" id="goAbout">
+                    Okay... let's go!
+                </a>
+
             </div>
 
             <div class="col-sm-4 konten-box">
@@ -198,6 +201,11 @@
                 }
             });
         });
+
+        document.getElementById("goAbout").addEventListener("click", () => {
+            localStorage.setItem("musicAllowed", "true");
+        });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

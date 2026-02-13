@@ -109,50 +109,61 @@
     </div>
 
     <audio id="backgroundMusic" loop>
-        <source src="sweet.mp3" type="audio/mpeg">
+        <source src="stream.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <!-- JAVASCRIPT -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const music = document.getElementById('backgroundMusic');
-            const btn = document.getElementById('music-toggle');
+        document.addEventListener("DOMContentLoaded", () => {
+            const music = document.getElementById("backgroundMusic");
+            const btn = document.getElementById("music-toggle");
 
-            // cek apakah sebelumnya user sudah mengizinkan musik
-            const musicAllowed = localStorage.getItem('musicAllowed');
+            // Ambil status & waktu terakhir
+            const allowed = localStorage.getItem("musicAllowed");
+            const savedTime = localStorage.getItem("musicTime");
 
-            if (musicAllowed === 'true') {
-                music.play().then(() => {
-                    btn.textContent = '🎵';
-                }).catch(() => {
-                    btn.textContent = '🤍';
-                });
+            if (savedTime) {
+                music.currentTime = parseFloat(savedTime);
             }
 
-            // klik pertama di mana saja → izinkan musik
+            if (allowed === "true") {
+                music.play().catch(() => { });
+                if (btn) btn.textContent = "🎵";
+            }
+
+            // Simpan waktu setiap 1 detik
+            setInterval(() => {
+                if (!music.paused) {
+                    localStorage.setItem("musicTime", music.currentTime);
+                }
+            }, 1000);
+
+            // Klik pertama untuk aktifkan
             const enableMusic = () => {
                 music.play().then(() => {
-                    localStorage.setItem('musicAllowed', 'true');
-                    btn.textContent = '🎵';
+                    localStorage.setItem("musicAllowed", "true");
+                    if (btn) btn.textContent = "🎵";
                 }).catch(() => { });
-                document.removeEventListener('click', enableMusic);
+                document.removeEventListener("click", enableMusic);
             };
 
-            document.addEventListener('click', enableMusic);
+            document.addEventListener("click", enableMusic);
 
-            // toggle manual
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // supaya tidak double-trigger
-                if (music.paused) {
-                    music.play();
-                    btn.textContent = '🎵';
-                    localStorage.setItem('musicAllowed', 'true');
-                } else {
-                    music.pause();
-                    btn.textContent = '🤍';
-                }
-            });
+            // Toggle manual (kalau ada tombol)
+            if (btn) {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    if (music.paused) {
+                        music.play();
+                        btn.textContent = "🎵";
+                        localStorage.setItem("musicAllowed", "true");
+                    } else {
+                        music.pause();
+                        btn.textContent = "🤍";
+                    }
+                });
+            }
         });
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -201,11 +212,6 @@
                 }
             });
         });
-
-        document.getElementById("goAbout").addEventListener("click", () => {
-            localStorage.setItem("musicAllowed", "true");
-        });
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

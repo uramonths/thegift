@@ -193,35 +193,54 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             const music = document.getElementById("backgroundMusic");
+            const btn = document.getElementById("music-toggle");
+
+            // Ambil status & waktu terakhir
             const allowed = localStorage.getItem("musicAllowed");
+            const savedTime = localStorage.getItem("musicTime");
 
-            if (allowed === "true") {
-                const tryPlay = () => {
-                    music.play().catch(() => {
-                        // kalau masih diblokir, tunggu interaksi pertama
-                        document.addEventListener("click", () => {
-                            music.play();
-                        }, { once: true });
-                    });
-                };
-
-                tryPlay();
+            if (savedTime) {
+                music.currentTime = parseFloat(savedTime);
             }
-        });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const music = document.getElementById("backgroundMusic");
-            const allowed = localStorage.getItem("musicAllowed");
 
             if (allowed === "true") {
-                music.play().catch(() => {
-                    document.addEventListener("click", () => {
+                music.play().catch(() => { });
+                if (btn) btn.textContent = "🎵";
+            }
+
+            // Simpan waktu setiap 1 detik
+            setInterval(() => {
+                if (!music.paused) {
+                    localStorage.setItem("musicTime", music.currentTime);
+                }
+            }, 1000);
+
+            // Klik pertama untuk aktifkan
+            const enableMusic = () => {
+                music.play().then(() => {
+                    localStorage.setItem("musicAllowed", "true");
+                    if (btn) btn.textContent = "🎵";
+                }).catch(() => { });
+                document.removeEventListener("click", enableMusic);
+            };
+
+            document.addEventListener("click", enableMusic);
+
+            // Toggle manual (kalau ada tombol)
+            if (btn) {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    if (music.paused) {
                         music.play();
-                    }, { once: true });
+                        btn.textContent = "🎵";
+                        localStorage.setItem("musicAllowed", "true");
+                    } else {
+                        music.pause();
+                        btn.textContent = "🤍";
+                    }
                 });
             }
         });
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

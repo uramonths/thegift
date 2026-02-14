@@ -116,57 +116,6 @@
     <!-- JAVASCRIPT -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const music = document.getElementById("backgroundMusic");
-            const btn = document.getElementById("music-toggle");
-
-            // Ambil status & waktu terakhir
-            const allowed = localStorage.getItem("musicAllowed");
-            const savedTime = localStorage.getItem("musicTime");
-
-            if (savedTime) {
-                music.currentTime = parseFloat(savedTime);
-            }
-
-            if (allowed === "true") {
-                music.play().catch(() => { });
-                if (btn) btn.textContent = "🎵";
-            }
-
-            // Simpan waktu setiap 1 detik
-            setInterval(() => {
-                if (!music.paused) {
-                    localStorage.setItem("musicTime", music.currentTime);
-                }
-            }, 1000);
-
-            // Klik pertama untuk aktifkan
-            const enableMusic = () => {
-                music.play().then(() => {
-                    localStorage.setItem("musicAllowed", "true");
-                    if (btn) btn.textContent = "🎵";
-                }).catch(() => { });
-                document.removeEventListener("click", enableMusic);
-            };
-
-            document.addEventListener("click", enableMusic);
-
-            // Toggle manual (kalau ada tombol)
-            if (btn) {
-                btn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    if (music.paused) {
-                        music.play();
-                        btn.textContent = "🎵";
-                        localStorage.setItem("musicAllowed", "true");
-                    } else {
-                        music.pause();
-                        btn.textContent = "🤍";
-                    }
-                });
-            }
-        });
-
-        document.addEventListener("DOMContentLoaded", () => {
             const header = document.querySelector(".disclaimer-header");
             const textEl = document.getElementById("typingText");
             const warning = document.querySelector(".warning-wrapper");
